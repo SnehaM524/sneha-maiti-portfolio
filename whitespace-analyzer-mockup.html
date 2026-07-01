@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Whitespace Analyzer — Positioning Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#ECEDF3;
+    --canvas-dot:#D6D8E4;
+    --surface:#FFFFFF;
+    --bg-app:#F6F7FB;
+    --ink:#14142B;
+    --ink-soft:#4C4C6A;
+    --muted:#8A8AA3;
+    --line:#E9EAF2;
+    --line-2:#EFF0F6;
+    --violet:#7C3AED;
+    --violet-600:#8B5CF6;
+    --violet-soft:#C4B5FD;
+    --violet-wash:#F2ECFE;
+    --violet-wash-2:#E9DEFB;
+    --indigo:#4338CA;
+    --slate:#9AA0B5;
+    --slate-2:#B8BDCE;
+    --pos:#12987A;
+    --pos-wash:#E4F4EF;
+    --shadow-frame:0 40px 90px -30px rgba(37,37,74,.35), 0 8px 24px -12px rgba(37,37,74,.18);
+    --shadow-card:0 1px 2px rgba(20,20,43,.04), 0 6px 20px -14px rgba(20,20,43,.18);
+    --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--canvas);}
+  body{
+    font-family:'Inter',system-ui,sans-serif;color:var(--ink);min-height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:56px 32px;
+    background-color:var(--canvas);
+    background-image:radial-gradient(var(--canvas-dot) 1.1px, transparent 1.1px);
+    background-size:22px 22px;background-position:-11px -11px;-webkit-font-smoothing:antialiased;
+  }
+  .stage{transform-origin:top center;}
+
+  .frame-label{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--violet);margin:0 0 9px 3px;user-select:none;}
+  .frame-label .dims{color:var(--muted);}
+  .frame{width:1400px;background:var(--bg-app);border-radius:20px;box-shadow:var(--shadow-frame);outline:2px solid var(--violet-600);overflow:hidden;}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;gap:18px;padding:18px 30px;border-bottom:1px solid var(--line);background:var(--surface);}
+  .brand{display:flex;align-items:baseline;gap:1px;}
+  .brand .mark{font-family:'Playfair Display',serif;font-weight:700;font-size:25px;letter-spacing:-.01em;color:var(--ink);}
+  .brand .dot{font-family:'Playfair Display',serif;font-weight:700;font-size:25px;color:var(--violet-600);}
+  .cat-pill{display:inline-flex;align-items:center;gap:9px;margin-left:6px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:#FBFBFE;}
+  .cat-pill .l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .cat-pill .v{font-size:13px;font-weight:600;color:var(--ink);}
+  .topbar .spacer{flex:1;}
+  .btn{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;border-radius:10px;padding:9px 15px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;}
+  .btn .ic{width:14px;height:14px;}
+  .btn.primary{background:var(--violet);border-color:var(--violet);color:#fff;box-shadow:0 6px 16px -8px rgba(124,58,237,.7);}
+
+  .canvas{padding:24px 30px 28px;display:flex;flex-direction:column;gap:16px;}
+  .row{display:grid;grid-template-columns:1.62fr 1fr;gap:16px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-card);}
+
+  /* map card */
+  .map-card{padding:20px 22px 18px;}
+  .map-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
+  .map-head h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+  .map-head .sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.02em;}
+
+  .plot-wrap{display:grid;grid-template-columns:26px 1fr;grid-template-rows:1fr 26px;gap:6px;}
+  .y-axis{grid-column:1;grid-row:1;position:relative;}
+  .y-axis span{position:absolute;left:0;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);}
+  .y-axis .top{top:6px;}
+  .y-axis .bot{bottom:6px;}
+  .plot{grid-column:2;grid-row:1;position:relative;height:496px;border:1px solid var(--line);border-radius:12px;background:
+      linear-gradient(var(--line-2) 1px,transparent 1px) 0 0/100% 41.33px,
+      linear-gradient(90deg,var(--line-2) 1px,transparent 1px) 0 0/48px 100%,
+      #FDFDFF;
+    overflow:hidden;}
+  .x-axis{grid-column:2;grid-row:2;display:flex;justify-content:space-between;align-items:center;padding:0 4px;}
+  .x-axis span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .corner{grid-column:1;grid-row:2;}
+
+  .axis-line{position:absolute;background:var(--slate-2);opacity:.5;}
+  .axis-line.v{left:50%;top:0;bottom:0;width:1.5px;transform:translateX(-.75px);}
+  .axis-line.h{top:50%;left:0;right:0;height:1.5px;transform:translateY(-.75px);}
+
+  .quad-label{position:absolute;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);opacity:.85;}
+
+  /* whitespace zone */
+  .whitespace{position:absolute;right:4px;top:4px;width:44%;height:44%;border-radius:12px;
+    background:radial-gradient(120% 120% at 80% 20%, rgba(124,58,237,.16), rgba(124,58,237,.04) 70%);
+    border:1.5px dashed var(--violet-soft);}
+  .whitespace .tag{position:absolute;top:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);font-weight:600;background:rgba(255,255,255,.7);padding:3px 8px;border-radius:6px;}
+
+  .crowd{position:absolute;left:3%;bottom:3%;width:46%;height:48%;border-radius:12px;background:rgba(154,160,181,.09);}
+
+  .dot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .dot .pt{width:12px;height:12px;border-radius:50%;background:var(--slate);border:2px solid #fff;box-shadow:0 1px 3px rgba(20,20,43,.25);}
+  .dot .lb{font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;}
+  .dot.big .pt{width:15px;height:15px;background:var(--slate-2);}
+  .dot.faint .pt{background:#CDD1DE;}
+  .dot.faint .lb{color:var(--muted);font-weight:500;}
+
+  .you{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:5px;z-index:3;}
+  .you .ring{width:34px;height:34px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;}
+  .you .ring::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--violet);opacity:.35;animation:pulse 2.6s ease-out infinite;}
+  .you .ring .core{width:15px;height:15px;border-radius:50%;background:var(--violet);border:3px solid #fff;box-shadow:0 2px 6px rgba(124,58,237,.5);}
+  .you .lb{font-size:11.5px;font-weight:700;color:var(--violet);white-space:nowrap;background:rgba(255,255,255,.8);padding:1px 7px;border-radius:6px;}
+  @keyframes pulse{0%{transform:scale(1);opacity:.4}70%{transform:scale(1.9);opacity:0}100%{opacity:0}}
+
+  .legend{display:flex;gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line-2);}
+  .legend span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-soft);font-weight:500;}
+  .legend i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .legend i.comp{background:var(--slate);}
+  .legend i.op{background:var(--violet);}
+  .legend i.zone{border-radius:3px;border:1.5px dashed var(--violet-soft);background:var(--violet-wash);}
+
+  /* lanes panel */
+  .lanes{padding:20px 22px 18px;display:flex;flex-direction:column;}
+  .lanes .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+  .lanes .p-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);}
+  .lanes .p-head .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+  .lanes .p-sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+
+  .lane{padding:14px 0;border-bottom:1px solid var(--line-2);}
+  .lane:first-of-type{padding-top:4px;}
+  .lane .top{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+  .lane .idx{width:22px;height:22px;border-radius:7px;flex:none;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:11px;display:flex;align-items:center;justify-content:center;background:var(--line-2);color:var(--ink-soft);}
+  .lane.own .idx{background:var(--violet-wash);color:var(--violet);}
+  .lane .name{font-size:13.5px;font-weight:600;color:var(--ink);flex:1;}
+  .lane .own-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--violet);background:var(--violet-wash);padding:3px 8px;border-radius:6px;}
+  .lane .why{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-bottom:9px;}
+  .lane .meter-row{display:flex;align-items:center;gap:10px;}
+  .lane .meter-row .l{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  .meter{flex:1;height:5px;border-radius:5px;background:var(--line-2);overflow:hidden;}
+  .meter > i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--violet-600),var(--violet));}
+  .lane .meter-row .v{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--violet);}
+
+  .density{margin-top:auto;padding-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .density .d{background:#FBFBFE;border:1px solid var(--line);border-radius:11px;padding:11px 12px;}
+  .density .d b{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1;}
+  .density .d span{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.03em;color:var(--muted);margin-top:6px;line-height:1.35;}
+
+  /* angle strip */
+  .angle{display:flex;align-items:center;gap:28px;padding:20px 26px;background:linear-gradient(120deg,#F3EEFE 0%,#ECE7FD 55%,#EEF0FE 100%);border:1px solid var(--violet-wash-2);border-radius:var(--r);}
+  .angle .left{flex:1.5;}
+  .angle .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);font-weight:500;margin-bottom:9px;}
+  .angle .stmt{font-family:'Playfair Display',serif;font-size:27px;font-weight:600;line-height:1.18;letter-spacing:-.01em;color:var(--ink);}
+  .angle .stmt em{font-style:italic;color:var(--violet);}
+  .angle .right{flex:1;border-left:1px solid rgba(124,58,237,.22);padding-left:26px;}
+  .angle .right p{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+  .angle .tags{margin-top:11px;display:flex;gap:7px;flex-wrap:wrap;}
+  .angle .tags b{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:10px;letter-spacing:.03em;padding:3px 9px;border-radius:6px;background:rgba(255,255,255,.65);color:var(--violet);}
+
+  .stage{opacity:0;transform:translateY(10px);animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.stage{animation:none;opacity:1;transform:none;} .you .ring::before{animation:none;}}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="frame-label">◇ Whitespace&nbsp;Analyzer&nbsp;/&nbsp;Positioning&nbsp;Map <span class="dims">— Desktop · 1400</span></div>
+
+    <div class="frame">
+      <div class="topbar">
+        <div class="brand"><span class="mark">Whitespace</span><span class="dot">.</span></div>
+        <div class="cat-pill"><span class="l">Category</span><span class="v">Ayurvedic wellness apps</span></div>
+        <div class="spacer"></div>
+        <button class="btn">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>
+          Re-map
+        </button>
+        <button class="btn primary">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+          Export map
+        </button>
+      </div>
+
+      <div class="canvas">
+        <div class="row">
+          <!-- MAP -->
+          <div class="card map-card">
+            <div class="map-head">
+              <h2>Category positioning map</h2>
+              <span class="sub">23 brands · 2 axes</span>
+            </div>
+
+            <div class="plot-wrap">
+              <div class="y-axis"><span class="top">Product-led</span><span class="bot">Content-led</span></div>
+
+              <div class="plot">
+                <div class="axis-line v"></div>
+                <div class="axis-line h"></div>
+
+                <div class="crowd"></div>
+                <div class="whitespace"><span class="tag">Open lane</span></div>
+
+                <!-- crowded cluster: generic + content-led (bottom-left) -->
+                <div class="dot" style="left:14%;top:84%"><span class="pt"></span><span class="lb">Free quiz sites</span></div>
+                <div class="dot" style="left:26%;top:73%"><span class="pt"></span><span class="lb">Dosha blogs</span></div>
+                <div class="dot" style="left:12%;top:64%"><span class="pt"></span><span class="lb">Wellness portals</span></div>
+                <div class="dot big" style="left:35%;top:78%"><span class="pt"></span><span class="lb">DoshaGuru</span></div>
+                <div class="dot" style="left:40%;top:60%"><span class="pt"></span><span class="lb">Herb shops</span></div>
+
+                <!-- mid -->
+                <div class="dot big" style="left:56%;top:52%"><span class="pt"></span><span class="lb">Vedix</span></div>
+                <div class="dot" style="left:44%;top:38%"><span class="pt"></span><span class="lb">Subscription boxes</span></div>
+
+                <!-- near opening, weak -->
+                <div class="dot faint" style="left:64%;top:22%"><span class="pt"></span><span class="lb">NewApp (beta)</span></div>
+
+                <!-- your opening -->
+                <div class="you" style="left:80%;top:28%"><span class="ring"><span class="core"></span></span><span class="lb">AyurDosha</span></div>
+              </div>
+
+              <div class="corner"></div>
+              <div class="x-axis"><span>Generic</span><span>Personalized</span></div>
+            </div>
+
+            <div class="legend">
+              <span><i class="comp"></i>Mapped competitor</span>
+              <span><i class="op"></i>Your opening</span>
+              <span><i class="zone"></i>Open lane</span>
+            </div>
+          </div>
+
+          <!-- LANES -->
+          <div class="card lanes">
+            <div class="p-head"><h3>Open lanes</h3><span class="count">ranked by whitespace</span></div>
+            <div class="p-sub">Where the category is thin and demand is not.</div>
+
+            <div class="lane own">
+              <div class="top"><span class="idx">1</span><span class="name">Personalized × Product-led</span><span class="own-tag">your lane</span></div>
+              <div class="why">Only 1 weak beta sits here. Buyers want a guided product, not another quiz. This is the clearest opening on the map.</div>
+              <div class="meter-row"><span class="l">whitespace</span><span class="meter"><i style="width:88%"></i></span><span class="v">88%</span></div>
+            </div>
+
+            <div class="lane">
+              <div class="top"><span class="idx">2</span><span class="name">Outcome-based retention</span></div>
+              <div class="why">Everyone sells the quiz. No one frames around results kept over time. Own the after, not the sign-up.</div>
+              <div class="meter-row"><span class="l">whitespace</span><span class="meter"><i style="width:71%"></i></span><span class="v">71%</span></div>
+            </div>
+
+            <div class="lane">
+              <div class="top"><span class="idx">3</span><span class="name">Practitioner-backed personalization</span></div>
+              <div class="why">A trust gap. Buyers want a human in the loop. A light expert layer differentiates from pure algorithm apps.</div>
+              <div class="meter-row"><span class="l">whitespace</span><span class="meter"><i style="width:63%"></i></span><span class="v">63%</span></div>
+            </div>
+
+            <div class="density">
+              <div class="d"><b>23</b><span>brands mapped</span></div>
+              <div class="d"><b>78%</b><span>cluster in one quadrant</span></div>
+              <div class="d"><b>1</b><span>open quadrant</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANGLE -->
+        <div class="angle">
+          <div class="left">
+            <div class="eyebrow">The angle you can own</div>
+            <div class="stmt">Personalized, <em>product-led</em> ayurveda for modern beginners.</div>
+          </div>
+          <div class="right">
+            <p>The crowded lane sells generic content and one-off quizzes. Position AyurDosha as the guided product that turns a dosha result into an ongoing, outcome-based routine.</p>
+            <div class="tags"><b>Positioning</b><b>Messaging</b><b>AyurDosha</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    var stage=document.getElementById('stage');
+    function fit(){var avail=window.innerWidth-64,w=1400,s=Math.min(1,avail/w);stage.style.transform='scale('+s+')';document.body.style.minHeight=(stage.getBoundingClientRect().height+112)+'px';}
+    fit();window.addEventListener('resize',fit);window.addEventListener('load',fit);
+  })();
+</script>
+</body>
+</html>
