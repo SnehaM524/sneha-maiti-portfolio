@@ -11,109 +11,61 @@
   :root{
     --canvas:#ECEDF3;
     --canvas-dot:#D6D8E4;
-    --surface:#FFFFFF;
-    --bg-app:#F6F7FB;
-    --ink:#14142B;
-    --ink-soft:#4C4C6A;
-    --muted:#8A8AA3;
-    --line:#E9EAF2;
-    --line-2:#EFF0F6;
-    --indigo:#4338CA;
-    --indigo-600:#4F46E5;
-    --peri:#6366F1;
-    --peri-soft:#A5B4FC;
-    --peri-wash:#EEF0FE;
-    --peri-wash-2:#E4E7FE;
-    --pos:#12987A;
-    --pos-wash:#E4F4EF;
-    --miss:#C6446B;
-    --miss-wash:#FBE9EF;
-    --shadow-frame:0 40px 90px -30px rgba(37,37,74,.35), 0 8px 24px -12px rgba(37,37,74,.18);
-    --shadow-card:0 1px 2px rgba(20,20,43,.04), 0 6px 20px -14px rgba(20,20,43,.18);
+    --bg-app:#141310;
+    --surface:#1C1B16;
+    --surface-2:#232118;
+    --ink:#ECE6D6;
+    --ink-soft:#B7B09C;
+    --muted:#867F6C;
+    --line:#2C2A20;
+    --line-2:#26241B;
+    --gold:#C7A55B;
+    --gold-600:#B9954B;
+    --gold-soft:#DAC286;
+    --gold-wash:rgba(199,165,91,.13);
+    --gold-line:rgba(199,165,91,.30);
+    --pos:#8FB98A;
+    --pos-wash:rgba(143,185,138,.13);
+    --miss:#D18A6A;
+    --miss-wash:rgba(209,138,106,.13);
+    --shadow-frame:0 40px 90px -30px rgba(15,13,8,.55), 0 8px 24px -12px rgba(15,13,8,.4);
+    --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 8px 22px -16px rgba(0,0,0,.6);
     --r:16px;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:var(--canvas);}
   body{
-    font-family:'Inter',system-ui,sans-serif;
+    font-family:'JetBrains Mono',monospace;
     color:var(--ink);
     min-height:100vh;
     display:flex;align-items:center;justify-content:center;
     padding:56px 32px;
     background-color:var(--canvas);
     background-image:radial-gradient(var(--canvas-dot) 1.1px, transparent 1.1px);
-    background-size:22px 22px;
-    background-position:-11px -11px;
+    background-size:22px 22px;background-position:-11px -11px;
     -webkit-font-smoothing:antialiased;
   }
+  .stage{transform-origin:top center;}
 
-  .stage{ transform-origin:top center; }
+  .frame-label{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--gold-600);margin:0 0 9px 3px;user-select:none;}
+  .frame-label .dims{color:#9d9788;}
+  .frame{width:1400px;background:var(--bg-app);border-radius:20px;box-shadow:var(--shadow-frame);outline:2px solid var(--gold);outline-offset:0;overflow:hidden;display:grid;grid-template-columns:238px 1fr;}
 
-  /* ---- Figma frame chrome ---- */
-  .frame-label{
-    display:flex;align-items:center;gap:8px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;letter-spacing:.02em;
-    color:var(--indigo-600);
-    margin:0 0 9px 3px;
-    user-select:none;
-  }
-  .frame-label .hash{opacity:.55;}
-  .frame-label .dims{color:var(--muted);}
-  .frame{
-    width:1400px;
-    background:var(--bg-app);
-    border-radius:20px;
-    box-shadow:var(--shadow-frame);
-    outline:2px solid var(--peri);
-    outline-offset:0;
-    overflow:hidden;
-    display:grid;
-    grid-template-columns:238px 1fr;
-  }
-
-  /* ---- Sidebar ---- */
-  .side{
-    background:var(--surface);
-    border-right:1px solid var(--line);
-    padding:26px 20px 22px;
-    display:flex;flex-direction:column;
-    min-height:948px;
-  }
+  .side{background:var(--surface);border-right:1px solid var(--line);padding:26px 20px 22px;display:flex;flex-direction:column;min-height:948px;}
   .brand{display:flex;align-items:baseline;gap:2px;padding:0 6px 26px;}
-  .brand .mark{
-    font-family:'Playfair Display',serif;font-weight:700;font-size:26px;
-    letter-spacing:-.01em;color:var(--ink);
-  }
-  .brand .dot{color:var(--peri);font-family:'Playfair Display',serif;font-weight:700;font-size:26px;}
-  .brand .tag{
-    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--muted);margin-left:auto;transform:translateY(-2px);
-  }
-  .nav-label{
-    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;
-  }
+  .brand .mark{font-family:'Playfair Display',serif;font-weight:700;font-size:26px;letter-spacing:-.01em;color:var(--ink);}
+  .brand .dot{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:26px;}
+  .brand .tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:auto;transform:translateY(-2px);}
+  .nav-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;}
   .nav{display:flex;flex-direction:column;gap:2px;}
-  .nav a{
-    display:flex;align-items:center;gap:11px;
-    padding:9px 10px;border-radius:10px;
-    font-size:13.5px;font-weight:500;color:var(--ink-soft);
-    text-decoration:none;position:relative;
-  }
+  .nav a{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;position:relative;}
   .nav a .ic{width:16px;height:16px;flex:none;color:var(--muted);}
-  .nav a.active{background:var(--peri-wash);color:var(--indigo);font-weight:600;}
-  .nav a.active .ic{color:var(--indigo);}
-  .nav a.active::before{
-    content:"";position:absolute;left:-20px;top:8px;bottom:8px;width:3px;
-    background:var(--indigo);border-radius:0 3px 3px 0;
-  }
+  .nav a.active{background:var(--gold-wash);color:var(--gold-soft);font-weight:600;}
+  .nav a.active .ic{color:var(--gold);}
+  .nav a.active::before{content:"";position:absolute;left:-20px;top:8px;bottom:8px;width:3px;background:var(--gold);border-radius:0 3px 3px 0;}
   .side-spacer{flex:1;}
-  .audit-card{
-    border:1px solid var(--line);border-radius:12px;padding:13px 13px 12px;
-    background:linear-gradient(180deg,#FBFBFE,#F5F6FC);
-  }
+  .audit-card{border:1px solid var(--line);border-radius:12px;padding:13px 13px 12px;background:linear-gradient(180deg,#211F17,#1A1813);}
   .audit-card .row1{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
   .audit-card .pulse{width:8px;height:8px;border-radius:50%;background:var(--pos);position:relative;flex:none;}
   .audit-card .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--pos);opacity:.35;}
@@ -121,56 +73,41 @@
   .audit-card .dom{font-size:13px;font-weight:600;color:var(--ink);}
   .audit-card .meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:3px;}
 
-  /* ---- Main ---- */
   .main{padding:0;}
-  .topbar{
-    display:flex;align-items:center;gap:16px;
-    padding:18px 28px;border-bottom:1px solid var(--line);
-    background:var(--surface);
-  }
-  .topbar .crumb{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);}
-  .topbar h1{
-    font-family:'Playfair Display',serif;font-weight:600;font-size:21px;letter-spacing:-.01em;color:var(--ink);
-    display:flex;align-items:baseline;gap:9px;
-  }
-  .topbar h1 em{font-style:italic;color:var(--peri);font-weight:500;}
+  .topbar{display:flex;align-items:center;gap:16px;padding:18px 28px;border-bottom:1px solid var(--line);background:var(--surface);}
+  .topbar h1{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;letter-spacing:-.01em;color:var(--ink);display:flex;align-items:baseline;gap:9px;}
+  .topbar h1 em{font-style:italic;color:var(--gold);font-weight:500;}
   .topbar .spacer{flex:1;}
-  .btn{
-    font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;
-    border-radius:10px;padding:9px 15px;cursor:pointer;border:1px solid var(--line);
-    background:var(--surface);color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;
-  }
+  .btn{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;border-radius:10px;padding:9px 15px;cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;}
   .btn .ic{width:14px;height:14px;}
-  .btn.primary{background:var(--indigo);border-color:var(--indigo);color:#fff;box-shadow:0 6px 16px -8px rgba(67,56,202,.7);}
+  .btn.primary{background:var(--gold);border-color:var(--gold);color:#20180A;box-shadow:0 6px 16px -8px rgba(199,165,91,.6);}
 
   .canvas{padding:24px 28px 30px;display:flex;flex-direction:column;gap:16px;}
-
-  /* Row 1 : hero + stats */
   .row-hero{display:grid;grid-template-columns:1.42fr 1fr;gap:16px;}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-card);}
 
-  .score-card{padding:22px 24px 20px;background:linear-gradient(135deg,#F1F2FE 0%,#E7EAFF 52%,#EEEBFC 100%);border:1px solid var(--peri-wash-2);position:relative;overflow:hidden;}
+  .score-card{padding:22px 24px 20px;background:radial-gradient(130% 130% at 15% 10%, #262218 0%, #1B1912 60%, #191710 100%);border:1px solid var(--gold-line);position:relative;overflow:hidden;}
   .score-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo);font-weight:500;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;}
   .score-body{display:flex;align-items:center;gap:26px;}
   .ring-wrap{position:relative;width:132px;height:132px;flex:none;}
   .ring-wrap .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
   .ring-wrap .num b{font-family:'Playfair Display',serif;font-weight:700;font-size:46px;line-height:1;color:var(--ink);}
   .ring-wrap .num span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--muted);margin-top:4px;}
-  .score-copy .title{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.15;margin-bottom:8px;}
-  .score-copy .title em{font-style:italic;color:var(--peri);}
+  .score-copy .title{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.15;margin-bottom:8px;color:var(--ink);}
+  .score-copy .title em{font-style:italic;color:var(--gold-soft);}
   .delta{display:inline-flex;align-items:center;gap:6px;background:var(--pos-wash);color:var(--pos);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;padding:4px 10px;border-radius:999px;}
   .delta .caret{font-size:10px;}
-  .score-copy .sub{font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;max-width:260px;}
+  .score-copy .sub{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;max-width:260px;}
 
-  .soa{margin-top:18px;padding-top:16px;border-top:1px solid rgba(99,102,241,.18);}
+  .soa{margin-top:18px;padding-top:16px;border-top:1px solid var(--gold-line);}
   .soa .soa-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .soa .soa-head .l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
   .soa .soa-head .r{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
-  .soa-bar{display:flex;height:26px;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);}
-  .soa-seg{display:flex;align-items:center;padding-left:9px;font-size:10.5px;font-weight:600;color:#fff;white-space:nowrap;font-family:'Inter',sans-serif;}
+  .soa-bar{display:flex;height:26px;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.3);}
+  .soa-seg{display:flex;align-items:center;padding-left:9px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;white-space:nowrap;}
   .soa-legend{display:flex;gap:16px;margin-top:9px;flex-wrap:wrap;}
-  .soa-legend span{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);font-weight:500;}
+  .soa-legend span{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);font-weight:500;}
   .soa-legend i{width:9px;height:9px;border-radius:3px;display:inline-block;}
 
   .stat-col{display:grid;grid-template-rows:repeat(3,1fr);gap:12px;}
@@ -178,12 +115,11 @@
   .stat .k{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1;color:var(--ink);min-width:70px;}
   .stat .k small{font-size:16px;color:var(--muted);font-family:'Playfair Display',serif;}
   .stat .meta{flex:1;}
-  .stat .meta .lab{font-size:12.5px;font-weight:600;color:var(--ink);}
-  .stat .meta .desc{font-size:11px;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;}
+  .stat .meta .lab{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);}
+  .stat .meta .desc{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:3px;letter-spacing:.02em;}
   .stat .trend{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
   .trend.up{color:var(--pos);}.trend.flat{color:var(--muted);}
 
-  /* Engines */
   .sec-head{display:flex;align-items:center;gap:12px;margin:2px 2px 0;}
   .sec-head h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
   .sec-head .hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.03em;}
@@ -191,112 +127,79 @@
   .engines{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
   .eng{padding:15px 16px 14px;position:relative;}
   .eng .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
-  .eng .name{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink);}
+  .eng .name{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;color:var(--ink);}
   .eng .glyph{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;flex:none;}
   .eng .rank{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
   .eng .score{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;line-height:1;color:var(--ink);}
   .eng .score sup{font-size:13px;color:var(--muted);font-weight:500;margin-left:2px;font-family:'JetBrains Mono',monospace;vertical-align:6px;}
   .eng .share-row{display:flex;align-items:center;justify-content:space-between;margin:11px 0 6px;}
   .eng .share-row .l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
-  .eng .share-row .v{font-size:11.5px;font-weight:600;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;}
-  .track{height:6px;border-radius:6px;background:var(--line-2);overflow:hidden;}
+  .eng .share-row .v{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ink-soft);}
+  .track{height:6px;border-radius:6px;background:#2A2820;overflow:hidden;}
   .track > i{display:block;height:100%;border-radius:6px;}
   .eng .foot{margin-top:11px;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;}
 
-  /* Row 3 : table + reco */
   .row-bottom{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;}
   .panel{padding:18px 20px 8px;}
   .panel .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
   .panel .p-head h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink);}
   .panel .p-head .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
   table{width:100%;border-collapse:collapse;}
-  thead th{
-    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
-    color:var(--muted);font-weight:500;text-align:left;padding:0 8px 9px;border-bottom:1px solid var(--line);
-  }
+  thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;padding:0 8px 9px;border-bottom:1px solid var(--line);}
   thead th.r{text-align:right;}
-  tbody td{padding:11px 8px;border-bottom:1px solid var(--line-2);font-size:12.5px;color:var(--ink);vertical-align:middle;}
+  tbody td{padding:11px 8px;border-bottom:1px solid var(--line-2);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink);vertical-align:middle;}
   tbody tr:last-child td{border-bottom:none;}
   td.prompt{font-weight:500;}
   td.prompt .q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-right:7px;}
   .chip{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.02em;}
   .chip.cited{background:var(--pos-wash);color:var(--pos);}
   .chip.missing{background:var(--miss-wash);color:var(--miss);}
-  td.pos{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;}
-  td.pos .dash{color:var(--muted);font-family:'Inter';font-weight:400;font-size:13px;}
+  td.pos{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;color:var(--ink);}
+  td.pos .dash{color:var(--muted);font-weight:400;font-size:13px;}
   td.eng-cell{text-align:right;}
-  .eng-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;color:var(--ink-soft);}
+  .eng-pill{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-soft);}
   .eng-pill i{width:16px;height:16px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:8px;}
   .eng-pill.none{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;}
 
   .tbl-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;padding:12px 8px 4px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
   .tbl-foot b{color:var(--ink);font-weight:600;}
   .tbl-foot .cov{display:inline-flex;gap:4px;}
-  .tbl-foot .cov i{width:13px;height:7px;border-radius:2px;background:var(--peri);display:inline-block;}
-  .tbl-foot .cov i.off{background:var(--line);}
+  .tbl-foot .cov i{width:13px;height:7px;border-radius:2px;background:var(--gold);display:inline-block;}
+  .tbl-foot .cov i.off{background:#2E2C22;}
 
   .reco{padding:18px 20px 20px;}
   .reco .p-head h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;}
   .reco-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-2);}
   .reco-item:last-child{border-bottom:none;padding-bottom:2px;}
-  .reco-item .idx{
-    width:24px;height:24px;border-radius:8px;flex:none;background:var(--peri-wash);color:var(--indigo);
-    font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center;
-  }
-  .reco-item .body .t{font-size:12.8px;font-weight:600;color:var(--ink);line-height:1.35;}
-  .reco-item .body .why{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;}
+  .reco-item .idx{width:24px;height:24px;border-radius:8px;flex:none;background:var(--gold-wash);color:var(--gold-soft);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .reco-item .body .t{font-family:'Inter',sans-serif;font-size:12.8px;font-weight:600;color:var(--ink);line-height:1.35;}
+  .reco-item .body .why{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;}
   .reco-item .body .tags{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap;}
-  .reco-item .body .tags b{
-    font-family:'JetBrains Mono',monospace;font-weight:500;font-size:9.5px;letter-spacing:.04em;
-    padding:2px 7px;border-radius:6px;background:#F3F4FA;color:var(--ink-soft);
-  }
-  .reco-item .body .tags b.high{background:var(--miss-wash);color:var(--miss);}
+  .reco-item .body .tags b{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:9.5px;letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:#26241B;color:var(--ink-soft);}
+  .reco-item .body .tags b.high{background:var(--gold-wash);color:var(--gold-soft);}
 
-  /* motion */
   .stage{opacity:0;transform:translateY(10px);animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards;}
   @keyframes rise{to{opacity:1;transform:none;}}
   .ring-fg{stroke-dasharray:339.29;stroke-dashoffset:339.29;animation:draw 1.1s cubic-bezier(.3,.7,.2,1) .25s forwards;}
   @keyframes draw{to{stroke-dashoffset:calc(339.29 - 339.29 * .62);}}
-  @media (prefers-reduced-motion:reduce){
-    .stage{animation:none;opacity:1;transform:none;}
-    .ring-fg{animation:none;stroke-dashoffset:calc(339.29 - 339.29 * .62);}
-  }
+  @media (prefers-reduced-motion:reduce){.stage{animation:none;opacity:1;transform:none;}.ring-fg{animation:none;stroke-dashoffset:calc(339.29 - 339.29 * .62);}}
 </style>
 </head>
 <body>
   <div class="stage" id="stage">
-    <div class="frame-label"><span class="hash">▤</span> AEO&nbsp;Auditor&nbsp;/&nbsp;Results <span class="dims">— Desktop · 1400</span></div>
+    <div class="frame-label"><span>▤</span> AEO&nbsp;Auditor&nbsp;/&nbsp;Results <span class="dims">— Desktop · 1400</span></div>
 
     <div class="frame">
-      <!-- SIDEBAR -->
       <aside class="side">
-        <div class="brand">
-          <span class="mark">AEO</span><span class="dot">.</span>
-          <span class="tag">Auditor</span>
-        </div>
+        <div class="brand"><span class="mark">AEO</span><span class="dot">.</span><span class="tag">Auditor</span></div>
 
         <div class="nav-label">Audit</div>
         <nav class="nav">
-          <a href="#" class="active">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
-            Overview
-          </a>
-          <a href="#">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h10M3 8h10M3 12h6"/></svg>
-            Prompts
-          </a>
-          <a href="#">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M2 8h12"/><circle cx="8" cy="8" r="6"/></svg>
-            Citations
-          </a>
-          <a href="#">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13V6M6 13V3M10 13V8M14 13v-4"/></svg>
-            Competitors
-          </a>
-          <a href="#">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.6 3.6L13.5 6l-2.7 2.6.7 3.8L8 10.6 4.5 12.4l.7-3.8L2.5 6l3.9-.4z"/></svg>
-            Recommendations
-          </a>
+          <a href="#" class="active"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Overview</a>
+          <a href="#"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h10M3 8h10M3 12h6"/></svg>Prompts</a>
+          <a href="#"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M2 8h12"/><circle cx="8" cy="8" r="6"/></svg>Citations</a>
+          <a href="#"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13V6M6 13V3M10 13V8M14 13v-4"/></svg>Competitors</a>
+          <a href="#"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.6 3.6L13.5 6l-2.7 2.6.7 3.8L8 10.6 4.5 12.4l.7-3.8L2.5 6l3.9-.4z"/></svg>Recommendations</a>
         </nav>
 
         <div class="side-spacer"></div>
@@ -308,33 +211,24 @@
         </div>
       </aside>
 
-      <!-- MAIN -->
       <section class="main">
         <header class="topbar">
           <h1>Answer Engine <em>Visibility</em></h1>
           <div class="spacer"></div>
-          <button class="btn">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>
-            Re-run audit
-          </button>
-          <button class="btn primary">
-            <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
-            Export report
-          </button>
+          <button class="btn"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>Re-run audit</button>
+          <button class="btn primary"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>Export report</button>
         </header>
 
         <div class="canvas">
-
-          <!-- ROW 1 -->
           <div class="row-hero">
             <div class="card score-card">
               <div class="score-head"><span class="eyebrow">AI Visibility Index</span></div>
               <div class="score-body">
                 <div class="ring-wrap">
                   <svg width="132" height="132" viewBox="0 0 132 132">
-                    <circle cx="66" cy="66" r="54" fill="none" stroke="#fff" stroke-width="13" opacity=".55"/>
+                    <circle cx="66" cy="66" r="54" fill="none" stroke="#2E2B20" stroke-width="13"/>
                     <circle class="ring-fg" cx="66" cy="66" r="54" fill="none" stroke="url(#g)" stroke-width="13" stroke-linecap="round" transform="rotate(-90 66 66)"/>
-                    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient></defs>
+                    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DAC286"/><stop offset="1" stop-color="#C7A55B"/></linearGradient></defs>
                   </svg>
                   <div class="num"><b>62</b><span>/ 100</span></div>
                 </div>
@@ -348,127 +242,70 @@
               <div class="soa">
                 <div class="soa-head"><span class="l">Share of answer</span><span class="r">who AI engines cite for your prompts</span></div>
                 <div class="soa-bar">
-                  <div class="soa-seg" style="width:34%;background:linear-gradient(90deg,#4338CA,#5B4FE0)">AyurDosha 34%</div>
-                  <div class="soa-seg" style="width:28%;background:#8189E8">Vedix 28%</div>
-                  <div class="soa-seg" style="width:22%;background:#AAB0F0">DoshaGuru 22%</div>
-                  <div class="soa-seg" style="width:16%;background:#CDD1F6;color:#4C4C6A">Others</div>
+                  <div class="soa-seg" style="width:34%;background:linear-gradient(90deg,#C7A55B,#DAC286);color:#20180A">AyurDosha 34%</div>
+                  <div class="soa-seg" style="width:28%;background:#6E6650;color:#EDE6D4">Vedix 28%</div>
+                  <div class="soa-seg" style="width:22%;background:#4A4638;color:#D8D2C2">DoshaGuru 22%</div>
+                  <div class="soa-seg" style="width:16%;background:#332F26;color:#A7A18F">Others</div>
                 </div>
                 <div class="soa-legend">
-                  <span><i style="background:#4338CA"></i>AyurDosha</span>
-                  <span><i style="background:#8189E8"></i>Vedix</span>
-                  <span><i style="background:#AAB0F0"></i>DoshaGuru</span>
-                  <span><i style="background:#CDD1F6"></i>Others</span>
+                  <span><i style="background:#C7A55B"></i>AyurDosha</span>
+                  <span><i style="background:#6E6650"></i>Vedix</span>
+                  <span><i style="background:#4A4638"></i>DoshaGuru</span>
+                  <span><i style="background:#332F26"></i>Others</span>
                 </div>
               </div>
             </div>
 
             <div class="stat-col">
-              <div class="card stat">
-                <div class="k">48</div>
-                <div class="meta"><div class="lab">Prompts tracked</div><div class="desc">across 6 query clusters</div></div>
-                <span class="trend up">▲ 12</span>
-              </div>
-              <div class="card stat">
-                <div class="k">31<small>%</small></div>
-                <div class="meta"><div class="lab">Citation share</div><div class="desc">brand links in AI answers</div></div>
-                <span class="trend up">▲ 5pt</span>
-              </div>
-              <div class="card stat">
-                <div class="k">4<small>/4</small></div>
-                <div class="meta"><div class="lab">Answer coverage</div><div class="desc">engines citing the brand</div></div>
-                <span class="trend flat">▬ flat</span>
-              </div>
+              <div class="card stat"><div class="k">48</div><div class="meta"><div class="lab">Prompts tracked</div><div class="desc">across 6 query clusters</div></div><span class="trend up">▲ 12</span></div>
+              <div class="card stat"><div class="k">31<small>%</small></div><div class="meta"><div class="lab">Citation share</div><div class="desc">brand links in AI answers</div></div><span class="trend up">▲ 5pt</span></div>
+              <div class="card stat"><div class="k">4<small>/4</small></div><div class="meta"><div class="lab">Answer coverage</div><div class="desc">engines citing the brand</div></div><span class="trend flat">▬ flat</span></div>
             </div>
           </div>
 
-          <!-- ROW 2 : engines -->
           <div class="sec-head"><h2>Engine breakdown</h2><span class="hint">ranked by visibility</span><span class="rule"></span></div>
           <div class="engines">
-            <!-- ChatGPT -->
             <div class="card eng">
-              <div class="top">
-                <div class="name"><span class="glyph" style="background:#10A37F">G</span>ChatGPT</div>
-                <span class="rank">#1</span>
-              </div>
+              <div class="top"><div class="name"><span class="glyph" style="background:#10A37F">G</span>ChatGPT</div><span class="rank">#1</span></div>
               <div class="score">71<sup>/100</sup></div>
               <div class="share-row"><span class="l">cite share</span><span class="v">38%</span></div>
-              <div class="track"><i style="width:76%;background:linear-gradient(90deg,#6366F1,#4338CA)"></i></div>
+              <div class="track"><i style="width:76%;background:linear-gradient(90deg,#DAC286,#C7A55B)"></i></div>
               <div class="foot"><span class="trend up">▲ +9</span><span style="color:var(--muted)">strongest on quizzes</span></div>
             </div>
-            <!-- Perplexity -->
             <div class="card eng">
-              <div class="top">
-                <div class="name"><span class="glyph" style="background:#20808D">P</span>Perplexity</div>
-                <span class="rank">#2</span>
-              </div>
+              <div class="top"><div class="name"><span class="glyph" style="background:#20808D">P</span>Perplexity</div><span class="rank">#2</span></div>
               <div class="score">66<sup>/100</sup></div>
               <div class="share-row"><span class="l">cite share</span><span class="v">34%</span></div>
-              <div class="track"><i style="width:66%;background:linear-gradient(90deg,#6366F1,#4338CA)"></i></div>
+              <div class="track"><i style="width:66%;background:linear-gradient(90deg,#DAC286,#C7A55B)"></i></div>
               <div class="foot"><span class="trend up">▲ +6</span><span style="color:var(--muted)">favors FAQ blocks</span></div>
             </div>
-            <!-- Claude -->
             <div class="card eng">
-              <div class="top">
-                <div class="name"><span class="glyph" style="background:#D97757">C</span>Claude</div>
-                <span class="rank">#3</span>
-              </div>
+              <div class="top"><div class="name"><span class="glyph" style="background:#D97757">C</span>Claude</div><span class="rank">#3</span></div>
               <div class="score">58<sup>/100</sup></div>
               <div class="share-row"><span class="l">cite share</span><span class="v">26%</span></div>
-              <div class="track"><i style="width:58%;background:linear-gradient(90deg,#6366F1,#4338CA)"></i></div>
+              <div class="track"><i style="width:58%;background:linear-gradient(90deg,#DAC286,#C7A55B)"></i></div>
               <div class="foot"><span class="trend up">▲ +4</span><span style="color:var(--muted)">cites long-form guides</span></div>
             </div>
-            <!-- Gemini -->
             <div class="card eng">
-              <div class="top">
-                <div class="name"><span class="glyph" style="background:#4285F4">◆</span>Gemini</div>
-                <span class="rank">#4</span>
-              </div>
+              <div class="top"><div class="name"><span class="glyph" style="background:#4285F4">◆</span>Gemini</div><span class="rank">#4</span></div>
               <div class="score">54<sup>/100</sup></div>
               <div class="share-row"><span class="l">cite share</span><span class="v">22%</span></div>
-              <div class="track"><i style="width:54%;background:linear-gradient(90deg,#A5B4FC,#6366F1)"></i></div>
+              <div class="track"><i style="width:54%;background:linear-gradient(90deg,#8A7E58,#C7A55B)"></i></div>
               <div class="foot"><span class="trend flat">▬ flat</span><span style="color:var(--muted)">weights communities</span></div>
             </div>
           </div>
 
-          <!-- ROW 3 -->
           <div class="row-bottom">
             <div class="card panel">
               <div class="p-head"><h3>Prompt coverage</h3><span class="count">5 of 48 shown</span></div>
               <table>
-                <thead>
-                  <tr><th>Tracked prompt</th><th>Status</th><th class="r">Best pos.</th><th class="r">Top engine</th></tr>
-                </thead>
+                <thead><tr><th>Tracked prompt</th><th>Status</th><th class="r">Best pos.</th><th class="r">Top engine</th></tr></thead>
                 <tbody>
-                  <tr>
-                    <td class="prompt"><span class="q">Q</span>best ayurvedic dosha quiz</td>
-                    <td><span class="chip cited">● cited</span></td>
-                    <td class="pos" style="text-align:right">#2</td>
-                    <td class="eng-cell"><span class="eng-pill"><i style="background:#10A37F">G</i>ChatGPT</span></td>
-                  </tr>
-                  <tr>
-                    <td class="prompt"><span class="q">Q</span>vata pitta kapha test online</td>
-                    <td><span class="chip cited">● cited</span></td>
-                    <td class="pos" style="text-align:right">#1</td>
-                    <td class="eng-cell"><span class="eng-pill"><i style="background:#20808D">P</i>Perplexity</span></td>
-                  </tr>
-                  <tr>
-                    <td class="prompt"><span class="q">Q</span>ayurveda app for beginners</td>
-                    <td><span class="chip cited">● cited</span></td>
-                    <td class="pos" style="text-align:right">#4</td>
-                    <td class="eng-cell"><span class="eng-pill"><i style="background:#D97757">C</i>Claude</span></td>
-                  </tr>
-                  <tr>
-                    <td class="prompt"><span class="q">Q</span>personalized dosha diet plan</td>
-                    <td><span class="chip missing">○ missing</span></td>
-                    <td class="pos" style="text-align:right"><span class="dash">—</span></td>
-                    <td class="eng-cell"><span class="eng-pill none">not cited</span></td>
-                  </tr>
-                  <tr>
-                    <td class="prompt"><span class="q">Q</span>ayurvedic wellness app 2026</td>
-                    <td><span class="chip missing">○ missing</span></td>
-                    <td class="pos" style="text-align:right"><span class="dash">—</span></td>
-                    <td class="eng-cell"><span class="eng-pill none">not cited</span></td>
-                  </tr>
+                  <tr><td class="prompt"><span class="q">Q</span>best ayurvedic dosha quiz</td><td><span class="chip cited">● cited</span></td><td class="pos" style="text-align:right">#2</td><td class="eng-cell"><span class="eng-pill"><i style="background:#10A37F">G</i>ChatGPT</span></td></tr>
+                  <tr><td class="prompt"><span class="q">Q</span>vata pitta kapha test online</td><td><span class="chip cited">● cited</span></td><td class="pos" style="text-align:right">#1</td><td class="eng-cell"><span class="eng-pill"><i style="background:#20808D">P</i>Perplexity</span></td></tr>
+                  <tr><td class="prompt"><span class="q">Q</span>ayurveda app for beginners</td><td><span class="chip cited">● cited</span></td><td class="pos" style="text-align:right">#4</td><td class="eng-cell"><span class="eng-pill"><i style="background:#D97757">C</i>Claude</span></td></tr>
+                  <tr><td class="prompt"><span class="q">Q</span>personalized dosha diet plan</td><td><span class="chip missing">○ missing</span></td><td class="pos" style="text-align:right"><span class="dash">—</span></td><td class="eng-cell"><span class="eng-pill none">not cited</span></td></tr>
+                  <tr><td class="prompt"><span class="q">Q</span>ayurvedic wellness app 2026</td><td><span class="chip missing">○ missing</span></td><td class="pos" style="text-align:right"><span class="dash">—</span></td><td class="eng-cell"><span class="eng-pill none">not cited</span></td></tr>
                 </tbody>
               </table>
               <div class="tbl-foot">
@@ -480,30 +317,9 @@
 
             <div class="card reco">
               <div class="p-head"><h3>Recommendations</h3><span class="count">prioritized</span></div>
-              <div class="reco-item">
-                <div class="idx">1</div>
-                <div class="body">
-                  <div class="t">Publish a structured dosha comparison page</div>
-                  <div class="why">3 of 4 engines cite listicles for "best dosha quiz." A comparison table earns the pull-quote.</div>
-                  <div class="tags"><b class="high">high impact</b><b>content</b><b>+8 est.</b></div>
-                </div>
-              </div>
-              <div class="reco-item">
-                <div class="idx">2</div>
-                <div class="body">
-                  <div class="t">Add FAQ schema to the quiz page</div>
-                  <div class="why">Perplexity pulls Q&amp;A blocks first. Schema makes the diet-plan prompt answerable.</div>
-                  <div class="tags"><b class="high">high impact</b><b>technical</b><b>+6 est.</b></div>
-                </div>
-              </div>
-              <div class="reco-item">
-                <div class="idx">3</div>
-                <div class="body">
-                  <div class="t">Earn 2 citations in r/Ayurveda</div>
-                  <div class="why">Gemini weights community sources for beginner queries. This is the fastest lift on Gemini.</div>
-                  <div class="tags"><b>medium</b><b>off-site</b><b>+4 est.</b></div>
-                </div>
-              </div>
+              <div class="reco-item"><div class="idx">1</div><div class="body"><div class="t">Publish a structured dosha comparison page</div><div class="why">3 of 4 engines cite listicles for "best dosha quiz." A comparison table earns the pull-quote.</div><div class="tags"><b class="high">high impact</b><b>content</b><b>+8 est.</b></div></div></div>
+              <div class="reco-item"><div class="idx">2</div><div class="body"><div class="t">Add FAQ schema to the quiz page</div><div class="why">Perplexity pulls Q&amp;A blocks first. Schema makes the diet-plan prompt answerable.</div><div class="tags"><b class="high">high impact</b><b>technical</b><b>+6 est.</b></div></div></div>
+              <div class="reco-item"><div class="idx">3</div><div class="body"><div class="t">Earn 2 citations in r/Ayurveda</div><div class="why">Gemini weights community sources for beginner queries. This is the fastest lift on Gemini.</div><div class="tags"><b>medium</b><b>off-site</b><b>+4 est.</b></div></div></div>
             </div>
           </div>
 
@@ -513,19 +329,10 @@
   </div>
 
 <script>
-  // Scale the fixed 1400px frame to fit any viewport for clean viewing / screenshotting.
   (function(){
     var stage=document.getElementById('stage');
-    function fit(){
-      var avail=window.innerWidth-64;         // horizontal padding
-      var w=1400;
-      var s=Math.min(1, avail/w);
-      stage.style.transform='scale('+s+')';
-      document.body.style.minHeight=(stage.getBoundingClientRect().height+112)+'px';
-    }
-    fit();
-    window.addEventListener('resize',fit);
-    window.addEventListener('load',fit);
+    function fit(){var avail=window.innerWidth-64,w=1400,s=Math.min(1,avail/w);stage.style.transform='scale('+s+')';document.body.style.minHeight=(stage.getBoundingClientRect().height+112)+'px';}
+    fit();window.addEventListener('resize',fit);window.addEventListener('load',fit);
   })();
 </script>
 </body>
